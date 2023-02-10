@@ -12,8 +12,8 @@ const data = [
     id: 1,
     xLocation: 200,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "we are breaking our vow of silence 1",
+      position: "right top",
     },
     text: { text: "dummy text one", position: "right" },
   },
@@ -21,8 +21,8 @@ const data = [
     id: 2,
     xLocation: 400,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "we are breaking our vow of silence 2",
+      position: "left center",
     },
     text: { text: "dummy text one", position: "right" },
   },
@@ -30,7 +30,7 @@ const data = [
     id: 3,
     xLocation: 600,
     title: {
-      text: "we are breaking our vow of silence",
+      text: "we are breaking our vow of silence 3",
       position: "left top",
     },
     text: { text: "dummy text one", position: "right" },
@@ -55,7 +55,7 @@ const data = [
   },
   {
     id: 6,
-    xLocation: 1000,
+    xLocation: 1200,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -64,7 +64,7 @@ const data = [
   },
   {
     id: 7,
-    xLocation: 1000,
+    xLocation: 1400,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -73,7 +73,7 @@ const data = [
   },
   {
     id: 8,
-    xLocation: 1000,
+    xLocation: 1600,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -89,14 +89,14 @@ const data = [
     },
     text: { text: "dummy text one", position: "right" },
   },
-]
+];
 
-let currentId = 0
-let image = document.getElementById("backgroundImage")
-let leftArrow = document.getElementsByClassName("leftArrow")[0]
-let rightArrow = document.getElementsByClassName("rightArrow")[0]
-let navigationBar = document.getElementsByClassName("navigationBar")[0]
-
+let currentId = 0;
+let image = document.getElementById("backgroundImage");
+let leftArrow = document.getElementsByClassName("leftArrow")[0];
+let rightArrow = document.getElementsByClassName("rightArrow")[0];
+let navigationBar = document.getElementsByClassName("navigationBar")[0];
+let text = document.getElementById("text");
 // Function to disable scroll without navigation
 
 // const disableScroll = () => {
@@ -113,49 +113,69 @@ let navigationBar = document.getElementsByClassName("navigationBar")[0]
 // Function to update selected node
 
 const updateSelectedNode = (id) => {
-  document.getElementById(currentId.toString()).style.background = "transparent"
+  document.getElementById(currentId.toString()).style.background =
+    "transparent";
   if (id) {
-    document.getElementById(id).style.background = "white"
-    currentId = id
+    document.getElementById(id).style.background = "white";
+    currentId = id;
   }
-}
+};
 
 // Function to create new element for navigation
 
 const createNewCarouselNode = () => {
   for (let i = 0; i < data.length; i++) {
-    let element = document.createElement("div")
-    let attribute = document.createAttribute("onClick")
-    attribute.value = `shiftToNewLocation(${i})`
+    let element = document.createElement("div");
+    let attribute = document.createAttribute("onClick");
+    attribute.value = `shiftToNewLocation(${i})`;
+    element.setAttributeNode(attribute);
 
-    element.setAttributeNode(attribute)
-
-    element.id = data[i].id
-    element.style.width = "1.5rem"
-    element.style.height = "1.5rem"
+    element.id = data[i].id;
+    element.style.width = "1.5rem";
+    element.style.height = "1.5rem";
 
     // element.style.background = "red"
     if (i !== 0) {
-      element.innerText = i !== data.length - 1 ? i : null
-      element.style.borderLeft = "3px solid white"
-      element.style.borderLeftStyle = "dotted"
-      element.style.color = "white"
+      element.innerText = i !== data.length - 1 ? i : null;
+      element.style.borderLeft = "3px solid white";
+      element.style.borderLeftStyle = "dotted";
+      element.style.color = "white";
     }
-    navigationBar.appendChild(element)
+    navigationBar.appendChild(element);
   }
-}
+};
 
 const shiftToNewLocation = (id) => {
-  const locationToMove = getLocation(id)
+  const locationToMove = getLocation(id);
 
-  image.style.transform = `translateX(-${locationToMove}px)`
-  image.style.transitionDuration = "1s"
-  image.style.transitionTimingFunction = "ease"
+  image.style.transform = `translateX(-${locationToMove}px)`;
+  image.style.transitionDuration = "1s";
+  image.style.transitionTimingFunction = "ease";
 
-  updateSelectedNode(id)
-  toggleArrows(id)
-}
+  displayTitle(id);
+  updateSelectedNode(id);
+  toggleArrows(id);
+};
 
+const getItem = (id) => {
+  return data.find((item) => item.id === id);
+};
+
+const displayTitle = (id) => {
+  const data = getItem(id);
+  const hr = data.title.position.split(" ")[0];
+  const vr = data.title.position.split(" ")[1];
+  const title = data.title.text;
+  text.innerHTML = title;
+  text.style.position = "absolute";
+  text.style.left = hr === "left" ? "0" : "unset";
+  text.style.right = hr === "right" ? "0" : "unset";
+  text.style.top = vr === "center" ? "0" : "50%";
+  text.style.transform = vr === "top" ? "translateY(-50%)" : "unset";
+  text.style.width = "100px";
+  text.style.textAlign = hr;
+  console.log({ title, hr, vr });
+};
 // Function to update active carousel node
 
 // const updateActiveCarouselNode = () => {
@@ -166,57 +186,57 @@ const shiftToNewLocation = (id) => {
 // Function to get the location of a specific ID
 
 const getLocation = (id) => {
-  return data.find((item) => item.id === id).xLocation
-}
+  return data.find((item) => item.id === id).xLocation;
+};
 
 // Function to toggle the Navigation Arrows
 
 const toggleArrows = (id = 0) => {
   if (id <= 0) {
-    leftArrow.style.display = "none"
+    leftArrow.style.display = "none";
   } else {
-    leftArrow.style.display = "block"
+    leftArrow.style.display = "block";
   }
 
   if (id >= Object.keys(data).length - 1) {
-    rightArrow.style.display = "none"
+    rightArrow.style.display = "none";
   } else {
-    rightArrow.style.display = "block"
+    rightArrow.style.display = "block";
   }
-}
+};
 
 // Function to make transition
 
 const makeTransition = (transitionSide) => {
   if (transitionSide) {
-    let newId = currentId
+    let newId = currentId;
 
     if (transitionSide === "left") {
-      if (currentId <= 0) return
-      newId -= 1
+      if (currentId <= 0) return;
+      newId -= 1;
     }
 
     if (transitionSide === "right") {
-      if (currentId >= Object.keys(data).length - 1) return
-      newId += 1
+      if (currentId >= Object.keys(data).length - 1) return;
+      newId += 1;
     }
 
-    const locationToMove = getLocation(newId)
+    const locationToMove = getLocation(newId);
 
-    toggleArrows(newId)
+    toggleArrows(newId);
     // createNewCarouselNode()
-    updateSelectedNode(newId)
+    updateSelectedNode(newId);
 
-    image.style.transform = `translateX(-${locationToMove}px)`
-    image.style.transitionDuration = "1s"
-    image.style.transitionTimingFunction = "ease"
+    image.style.transform = `translateX(-${locationToMove}px)`;
+    image.style.transitionDuration = "1s";
+    image.style.transitionTimingFunction = "ease";
 
-    currentId = newId
+    currentId = newId;
   } else {
-    shiftToNewLocation()
+    shiftToNewLocation();
   }
-}
+};
 
-toggleArrows()
-createNewCarouselNode()
-updateSelectedNode()
+toggleArrows();
+createNewCarouselNode();
+updateSelectedNode();
