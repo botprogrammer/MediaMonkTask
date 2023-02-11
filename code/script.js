@@ -93,6 +93,8 @@ const data = [
 
 let currentId = 0
 let image = document.getElementById("backgroundImage")
+let initialAnimation = document.getElementsByClassName("initialAnimation")[0]
+let main = document.getElementsByClassName("main")[0]
 let leftArrow = document.getElementsByClassName("leftArrow")[0]
 let rightArrow = document.getElementsByClassName("rightArrow")[0]
 let navigationBar = document.getElementsByClassName("navigationBar")[0]
@@ -113,14 +115,12 @@ let text = document.getElementById("text")
 // Function to initialize first animation
 
 const initializeInitialAnimation = () => {
+  main.style.display = "none"
   let smoke = document.getElementById("smoke")
   let monk = document.getElementById("monk")
   let patience = document.getElementsByTagName("span")[0]
-  let exclamation = document.getElementsByTagName("span")[1]
-  let padawan = document.getElementsByTagName("span")[2]
 
-  patience.style.opacity = "0"
-  patience.style.marginLeft = "50px"
+  patience.style.display = "none"
 
   smoke.animate(
     [
@@ -144,23 +144,26 @@ const initializeInitialAnimation = () => {
     }
   )
 
-  patience.animate(
-    [
-      { marginLeft: "50px", opacity: "0", transform: "scale(0.3)" },
-      { marginLeft: "0", opacity: "1", transform: "scale(1)" },
-    ],
-    {
-      duration: 5000,
-      delay: 1000,
-      // iterations: Infinity,
-    }
-  )
-
-  patience.style.opacity = "1"
-  patience.style.marginLeft = "0px"
   setTimeout(() => {
-    patience.classList.remove("none")
-  }, 1100)
+    patience.style.display = "unset"
+    patience.animate([{ opacity: "0" }, { opacity: "0.5" }, { opacity: "1" }], {
+      duration: 1000,
+    })
+  }, 2000)
+
+  setTimeout(() => {
+    initialAnimation.animate([{ opacity: "1" }, { opacity: "0" }], {
+      duration: 2000,
+    })
+
+    initialAnimation.style.display = "none"
+
+    main.animate([{ opacity: "0" }, { opacity: "1" }], {
+      duration: 1500,
+    })
+
+    main.style.display = "block"
+  }, 3900)
 }
 
 initializeInitialAnimation()
@@ -168,7 +171,6 @@ initializeInitialAnimation()
 // Function to update selected node
 
 const updateSelectedNode = (id) => {
-  console.log({ id })
   document.getElementById(currentId.toString()).style.background = "transparent"
   if (id || id === 0) {
     document.getElementById(id).style.background = "white"
@@ -252,12 +254,6 @@ const displayTitle = (id) => {
 
   fireAnimation(id)
 }
-// Function to update active carousel node
-
-// const updateActiveCarouselNode = () => {
-//   let element = document.getElementById(currentId.toString())
-//   element.style.background = "white"
-// }
 
 // Function to get the location of a specific ID
 

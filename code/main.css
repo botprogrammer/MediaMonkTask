@@ -68,6 +68,11 @@ body {
   opacity: 0.7;
 }
 
+.initialAnimation .text p {
+  width: 100vw;
+  text-align: center;
+}
+
 .contactContent {
   position: absolute;
   right: 0;
@@ -145,17 +150,15 @@ rect {
   height: 101vh;
   overflow-x: auto;
   pointer-events: none;
-  /* box-sizing: content-box; */
 }
 
 .logo {
   position: absolute;
-  right: 1rem;
+  right: 2rem;
   bottom: 0rem;
 }
 
 .logo svg {
-  /* width: 5rem; */
   fill: white;
   stroke: white;
 }
@@ -165,7 +168,6 @@ rect {
 }
 
 .navigationBar {
-  /* padding: 0.5rem; */
   position: absolute;
   bottom: 1rem;
   left: 2rem;
