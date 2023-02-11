@@ -1,3 +1,23 @@
+@font-face {
+  font-family: "klavika-regular";
+  src: url("../code/assets/font/klavika-regular-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "klavika-light";
+  src: url("../code/assets/font/klavika-light-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "klavika-medium";
+  src: url("../code/assets/font/klavika-medium-webfont.woff") format("woff");
+}
+
+@font-face {
+  font-family: "klavika-bold";
+  src: url("../code/assets/font/klavika-bold-webfont.woff") format("woff");
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -116,7 +136,6 @@ a {
 
 .titleText {
   background-color: transparent;
-  border: 1px solid black;
   width: calc(100vw - 150px);
   height: 95vh;
   z-index: 100;
@@ -124,10 +143,21 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: klavika-regular;
 }
 
 .titleText > div {
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+.titleText .text {
+  width: 400px;
+  text-decoration-line: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+  font-size: 3rem !important;
+  position: absolute;
+  text-transform: uppercase;
 }

@@ -89,14 +89,14 @@ const data = [
     },
     text: { text: "dummy text one", position: "right" },
   },
-];
+]
 
-let currentId = 0;
-let image = document.getElementById("backgroundImage");
-let leftArrow = document.getElementsByClassName("leftArrow")[0];
-let rightArrow = document.getElementsByClassName("rightArrow")[0];
-let navigationBar = document.getElementsByClassName("navigationBar")[0];
-let text = document.getElementById("text");
+let currentId = 0
+let image = document.getElementById("backgroundImage")
+let leftArrow = document.getElementsByClassName("leftArrow")[0]
+let rightArrow = document.getElementsByClassName("rightArrow")[0]
+let navigationBar = document.getElementsByClassName("navigationBar")[0]
+let text = document.getElementById("text")
 // Function to disable scroll without navigation
 
 // const disableScroll = () => {
@@ -113,69 +113,85 @@ let text = document.getElementById("text");
 // Function to update selected node
 
 const updateSelectedNode = (id) => {
-  document.getElementById(currentId.toString()).style.background =
-    "transparent";
-  if (id) {
-    document.getElementById(id).style.background = "white";
-    currentId = id;
+  console.log({ id })
+  document.getElementById(currentId.toString()).style.background = "transparent"
+  if (id || id === 0) {
+    document.getElementById(id).style.background = "white"
+    currentId = id
   }
-};
+}
+
+// Function to fire animation
+
+const fireAnimation = (currentId) => {
+  if (currentId === 0) {
+    text.animate(
+      [
+        { transform: "translateY(15px)", opacity: "0.2" },
+        { transform: "translateY(0px)", opacity: "0.5" },
+      ],
+      { duration: 300 }
+    )
+  } else {
+    text.animate([{ opacity: "0" }, { opacity: "1" }], { duration: 500 })
+  }
+}
 
 // Function to create new element for navigation
 
 const createNewCarouselNode = () => {
   for (let i = 0; i < data.length; i++) {
-    let element = document.createElement("div");
-    let attribute = document.createAttribute("onClick");
-    attribute.value = `shiftToNewLocation(${i})`;
-    element.setAttributeNode(attribute);
+    let element = document.createElement("div")
+    let attribute = document.createAttribute("onClick")
+    attribute.value = `shiftToNewLocation(${i})`
+    element.setAttributeNode(attribute)
 
-    element.id = data[i].id;
-    element.style.width = "1.5rem";
-    element.style.height = "1.5rem";
+    element.id = data[i].id
+    element.style.width = "1.5rem"
+    element.style.height = "1.5rem"
 
     // element.style.background = "red"
     if (i !== 0) {
-      element.innerText = i !== data.length - 1 ? i : null;
-      element.style.borderLeft = "3px solid white";
-      element.style.borderLeftStyle = "dotted";
-      element.style.color = "white";
+      element.innerText = i !== data.length - 1 ? i : null
+      // element.style.border = "5px solid transparent"
+      element.style.borderLeft = "3px solid white"
+      element.style.borderLeftStyle = "dotted"
+      element.style.color = "white"
     }
-    navigationBar.appendChild(element);
+    navigationBar.appendChild(element)
   }
-};
+}
 
 const shiftToNewLocation = (id) => {
-  const locationToMove = getLocation(id);
+  const locationToMove = getLocation(id)
 
-  image.style.transform = `translateX(-${locationToMove}px)`;
-  image.style.transitionDuration = "1s";
-  image.style.transitionTimingFunction = "ease";
+  image.style.transform = `translateX(-${locationToMove}px)`
+  image.style.transitionDuration = "1s"
+  image.style.transitionTimingFunction = "ease"
 
-  displayTitle(id);
-  updateSelectedNode(id);
-  toggleArrows(id);
-};
+  displayTitle(id)
+  updateSelectedNode(id)
+  toggleArrows(id)
+}
 
 const getItem = (id) => {
-  return data.find((item) => item.id === id);
-};
+  return data.find((item) => item.id === id)
+}
 
 const displayTitle = (id) => {
-  const data = getItem(id);
-  const hr = data.title.position.split(" ")[0];
-  const vr = data.title.position.split(" ")[1];
-  const title = data.title.text;
-  text.innerHTML = title;
-  text.style.position = "absolute";
-  text.style.left = hr === "left" ? "0" : "unset";
-  text.style.right = hr === "right" ? "0" : "unset";
-  text.style.top = vr === "center" ? "0" : "50%";
-  text.style.transform = vr === "top" ? "translateY(-50%)" : "unset";
-  text.style.width = "100px";
-  text.style.textAlign = hr;
-  console.log({ title, hr, vr });
-};
+  const data = getItem(id)
+  const hr = data.title.position.split(" ")[0]
+  const vr = data.title.position.split(" ")[1]
+
+  const title = data.title.text
+  text.innerHTML = title
+  text.style.left = hr === "left" ? "0" : "unset"
+  text.style.right = hr === "right" ? "0" : "unset"
+  text.style.top = vr === "center" ? "40%" : "0"
+  text.style.textAlign = hr
+
+  fireAnimation(id)
+}
 // Function to update active carousel node
 
 // const updateActiveCarouselNode = () => {
@@ -186,57 +202,59 @@ const displayTitle = (id) => {
 // Function to get the location of a specific ID
 
 const getLocation = (id) => {
-  return data.find((item) => item.id === id).xLocation;
-};
+  return data.find((item) => item.id === id).xLocation
+}
 
 // Function to toggle the Navigation Arrows
 
 const toggleArrows = (id = 0) => {
   if (id <= 0) {
-    leftArrow.style.display = "none";
+    leftArrow.style.display = "none"
   } else {
-    leftArrow.style.display = "block";
+    leftArrow.style.display = "block"
   }
 
   if (id >= Object.keys(data).length - 1) {
-    rightArrow.style.display = "none";
+    rightArrow.style.display = "none"
   } else {
-    rightArrow.style.display = "block";
+    rightArrow.style.display = "block"
   }
-};
+}
 
 // Function to make transition
 
 const makeTransition = (transitionSide) => {
   if (transitionSide) {
-    let newId = currentId;
+    let newId = currentId
 
     if (transitionSide === "left") {
-      if (currentId <= 0) return;
-      newId -= 1;
+      if (currentId <= 0) return
+      newId -= 1
     }
 
     if (transitionSide === "right") {
-      if (currentId >= Object.keys(data).length - 1) return;
-      newId += 1;
+      if (currentId >= Object.keys(data).length - 1) return
+      newId += 1
     }
 
-    const locationToMove = getLocation(newId);
+    const locationToMove = getLocation(newId)
 
-    toggleArrows(newId);
+    toggleArrows(newId)
     // createNewCarouselNode()
-    updateSelectedNode(newId);
+    updateSelectedNode(newId)
+    displayTitle(newId)
 
-    image.style.transform = `translateX(-${locationToMove}px)`;
-    image.style.transitionDuration = "1s";
-    image.style.transitionTimingFunction = "ease";
+    image.style.transform = `translateX(-${locationToMove}px)`
+    image.style.transitionDuration = "1s"
+    image.style.transitionTimingFunction = "ease"
 
-    currentId = newId;
+    currentId = newId
   } else {
-    shiftToNewLocation();
+    shiftToNewLocation()
   }
-};
+}
 
-toggleArrows();
-createNewCarouselNode();
-updateSelectedNode();
+toggleArrows()
+createNewCarouselNode()
+updateSelectedNode()
+shiftToNewLocation(0)
