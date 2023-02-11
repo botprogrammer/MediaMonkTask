@@ -3,88 +3,112 @@ const data = [
     id: 0,
     xLocation: 0,
     title: {
-      text: "we are breaking our vow of silence",
+      text: "We are breaking our vow of silence",
       position: "left top",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: { text: "we are breaking our vow of silence", position: "right" },
   },
   {
     id: 1,
     xLocation: 900,
     title: {
-      text: "we are breaking our vow of silence 1",
-      position: "right top",
+      text: "talent is given true skill is earned",
+      position: "left center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 1 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 2,
     xLocation: 1800,
     title: {
-      text: "we are breaking our vow of silence 2",
+      text: "be flexible to change and sturdy in conviction",
       position: "left center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 2 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 3,
     xLocation: 2700,
     title: {
-      text: "we are breaking our vow of silence 3",
-      position: "left top",
+      text: "use many skills yet work as one",
+      position: "right center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 3 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 4,
     xLocation: 3600,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "to master anything find interest in everything",
+      position: "right center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 4 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 5,
     xLocation: 4500,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "individuals flourish if culture and wisdom are shared",
+      position: "right center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 5 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 6,
     xLocation: 5400,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "train your perfection but aim for more",
+      position: "left center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 6 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 7,
     xLocation: 6300,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "take pride in work but do not seek praise",
+      position: "left center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 7 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 8,
     xLocation: 7200,
     title: {
-      text: "we are breaking our vow of silence",
-      position: "left top",
+      text: "temporary sacrifice brings lasting results",
+      position: "left center",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: {
+      text: "Step 8 out of 8 on the path of digital enlightenment",
+      position: "right",
+    },
   },
   {
     id: 9,
     xLocation: 8000,
     title: {
-      text: "we are breaking our vow of silence",
+      text: "",
       position: "left top",
     },
     text: { text: "dummy text one", position: "right" },
@@ -99,6 +123,8 @@ let leftArrow = document.getElementsByClassName("leftArrow")[0]
 let rightArrow = document.getElementsByClassName("rightArrow")[0]
 let navigationBar = document.getElementsByClassName("navigationBar")[0]
 let text = document.getElementById("text")
+let smallText = document.getElementById("smallText")
+
 // Function to disable scroll without navigation
 
 // const disableScroll = () => {
@@ -181,6 +207,11 @@ const updateSelectedNode = (id) => {
 // Function to fire animation
 
 const fireAnimation = (currentId) => {
+  setTimeout(() => {
+    smallText.style.display = "block"
+    text.style.display = "block"
+  }, 200)
+
   if (currentId === 0) {
     text.animate(
       [
@@ -192,6 +223,10 @@ const fireAnimation = (currentId) => {
   } else {
     text.animate([{ opacity: "0" }, { opacity: "1" }], {
       duration: 1000,
+      delay: 200,
+    })
+    smallText.animate([{ opacity: "0" }, { opacity: "1" }], {
+      duration: 300,
       delay: 200,
     })
   }
@@ -229,8 +264,9 @@ const shiftToNewLocation = (id) => {
   image.style.transform = `translateX(-${locationToMove}px)`
   image.style.transitionDuration = "1s"
   image.style.transitionTimingFunction = "ease"
-
-  displayTitle(id)
+  smallText.style.display = "none"
+  text.style.display = "none"
+  displayTitleAndsmallText(id)
   updateSelectedNode(id)
   toggleArrows(id)
 }
@@ -239,7 +275,7 @@ const getItem = (id) => {
   return data.find((item) => item.id === id)
 }
 
-const displayTitle = (id) => {
+const displayTitleAndsmallText = (id) => {
   const data = getItem(id)
   const hr = data.title.position.split(" ")[0]
   const vr = data.title.position.split(" ")[1]
@@ -251,7 +287,7 @@ const displayTitle = (id) => {
   text.style.top = vr === "center" ? "40%" : "0"
   text.style.textAlign = hr
   text.style.opacity = "0"
-
+  smallText.innerHTML = data.text.text
   fireAnimation(id)
 }
 
@@ -294,10 +330,11 @@ const makeTransition = (transitionSide) => {
     }
 
     const locationToMove = getLocation(newId)
-
+    smallText.style.display = "none"
+    text.style.display = "none"
     toggleArrows(newId)
     updateSelectedNode(newId)
-    displayTitle(newId)
+    displayTitleAndsmallText(newId)
 
     image.style.transform = `translateX(-${locationToMove}px)`
     image.style.transitionDuration = "1s"

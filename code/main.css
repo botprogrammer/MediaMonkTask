@@ -176,6 +176,7 @@ rect {
   border-style: dotted;
   display: flex;
   align-items: center;
+  font-family: "klavika-light";
 }
 
 .navigationBar div {
@@ -234,4 +235,14 @@ rect {
   font-size: 3rem !important;
   position: absolute;
   text-transform: uppercase;
+}
+
+.smallText {
+  position: absolute;
+  bottom: 1.3rem;
+  left: 20rem;
+  font-size: 0.8rem;
+  font-family: "klavika-light";
+  font-weight: lighter;
+  letter-spacing: 0.8px;
 }
