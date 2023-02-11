@@ -10,7 +10,7 @@ const data = [
   },
   {
     id: 1,
-    xLocation: 900,
+    xLocation: 950,
     title: {
       text: "talent is given true skill is earned",
       position: "left center",
@@ -22,7 +22,7 @@ const data = [
   },
   {
     id: 2,
-    xLocation: 1800,
+    xLocation: 1650,
     title: {
       text: "be flexible to change and sturdy in conviction",
       position: "left center",
@@ -46,7 +46,7 @@ const data = [
   },
   {
     id: 4,
-    xLocation: 3600,
+    xLocation: 3700,
     title: {
       text: "to master anything find interest in everything",
       position: "right center",
@@ -58,7 +58,7 @@ const data = [
   },
   {
     id: 5,
-    xLocation: 4500,
+    xLocation: 4700,
     title: {
       text: "individuals flourish if culture and wisdom are shared",
       position: "right center",
@@ -70,9 +70,9 @@ const data = [
   },
   {
     id: 6,
-    xLocation: 5400,
+    xLocation: 5750,
     title: {
-      text: "train your perfection but aim for more",
+      text: "train for perfection but aim for more",
       position: "left center",
     },
     text: {
@@ -82,7 +82,7 @@ const data = [
   },
   {
     id: 7,
-    xLocation: 6300,
+    xLocation: 7200,
     title: {
       text: "take pride in work but do not seek praise",
       position: "left center",
@@ -106,12 +106,12 @@ const data = [
   },
   {
     id: 9,
-    xLocation: 8000,
+    xLocation: 8200,
     title: {
       text: "",
       position: "left top",
     },
-    text: { text: "dummy text one", position: "right" },
+    text: { text: "", position: "right" },
   },
 ]
 
@@ -124,19 +124,6 @@ let rightArrow = document.getElementsByClassName("rightArrow")[0]
 let navigationBar = document.getElementsByClassName("navigationBar")[0]
 let text = document.getElementById("text")
 let smallText = document.getElementById("smallText")
-
-// Function to disable scroll without navigation
-
-// const disableScroll = () => {
-//   // Get the current page scroll position
-//   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-//   (scrollLeft = window.pageXOffset || document.documentElement.scrollLeft),
-//     // if any scroll is attempted,
-//     // set this to the previous value
-//     (window.onscroll = function () {
-//       window.scrollTo(scrollLeft, scrollTop);
-//     });
-// };
 
 // Function to initialize first animation
 
@@ -175,12 +162,15 @@ const initializeInitialAnimation = () => {
     patience.animate([{ opacity: "0" }, { opacity: "0.5" }, { opacity: "1" }], {
       duration: 1000,
     })
-  }, 2000)
+  }, 1000)
 
   setTimeout(() => {
-    initialAnimation.animate([{ opacity: "1" }, { opacity: "0" }], {
-      duration: 2000,
-    })
+    initialAnimation.animate(
+      [{ opacity: "1" }, { opacity: "0.5" }, { opacity: "0" }],
+      {
+        duration: 1000,
+      }
+    )
 
     initialAnimation.style.display = "none"
 
@@ -189,7 +179,7 @@ const initializeInitialAnimation = () => {
     })
 
     main.style.display = "block"
-  }, 3900)
+  }, 3500)
 }
 
 initializeInitialAnimation()
@@ -249,7 +239,6 @@ const createNewCarouselNode = () => {
     // element.style.background = "red"
     if (i !== 0) {
       element.innerText = i !== data.length - 1 ? i : null
-      // element.style.border = "5px solid transparent"
       element.style.borderLeft = "3px solid white"
       element.style.borderLeftStyle = "dotted"
       element.style.color = "white"
