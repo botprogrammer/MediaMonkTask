@@ -110,6 +110,61 @@ let text = document.getElementById("text")
 //     });
 // };
 
+// Function to initialize first animation
+
+const initializeInitialAnimation = () => {
+  let smoke = document.getElementById("smoke")
+  let monk = document.getElementById("monk")
+  let patience = document.getElementsByTagName("span")[0]
+  let exclamation = document.getElementsByTagName("span")[1]
+  let padawan = document.getElementsByTagName("span")[2]
+
+  patience.style.opacity = "0"
+  patience.style.marginLeft = "50px"
+
+  smoke.animate(
+    [
+      { transform: "translate(-100px, -50%)" },
+      { transform: "translate(-300px, -50%)" },
+    ],
+    {
+      duration: 4000,
+    }
+  )
+
+  monk.animate(
+    [
+      { transform: "translate(-50%, -60%)" },
+      { transform: "translate(-50%, -50%)" },
+      { transform: "translate(-50%, -60%)" },
+    ],
+    {
+      iterations: Infinity,
+      duration: 2000,
+    }
+  )
+
+  patience.animate(
+    [
+      { marginLeft: "50px", opacity: "0", transform: "scale(0.3)" },
+      { marginLeft: "0", opacity: "1", transform: "scale(1)" },
+    ],
+    {
+      duration: 5000,
+      delay: 1000,
+      // iterations: Infinity,
+    }
+  )
+
+  patience.style.opacity = "1"
+  patience.style.marginLeft = "0px"
+  setTimeout(() => {
+    patience.classList.remove("none")
+  }, 1100)
+}
+
+initializeInitialAnimation()
+
 // Function to update selected node
 
 const updateSelectedNode = (id) => {

@@ -26,11 +26,46 @@ body {
   overflow: hidden;
 }
 
+.none {
+  display: none;
+}
+
 .main {
   width: 100%;
   height: 100%;
   box-sizing: content-box;
   background: #101010;
+  display: none;
+}
+
+.initialAnimation {
+  width: 100vw;
+  height: 100vh;
+  background: #101010;
+}
+
+.initialAnimation img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.initialAnimation .smoke {
+  opacity: 25%;
+}
+
+.initialAnimation .images {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initialAnimation .text {
+  margin-top: 15rem;
+  font-style: italic;
+  opacity: 0.7;
 }
 
 .contactContent {
