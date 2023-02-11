@@ -6,7 +6,7 @@ const data = [
       text: "We are breaking our vow of silence",
       position: "left top",
     },
-    text: { text: "we are breaking our vow of silence", position: "right" },
+    text: { text: "In January 2011, after a decade of digital, we opened the doors to our temple.", position: "right" },
   },
   {
     id: 1,
