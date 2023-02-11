@@ -10,7 +10,7 @@ const data = [
   },
   {
     id: 1,
-    xLocation: 200,
+    xLocation: 900,
     title: {
       text: "we are breaking our vow of silence 1",
       position: "right top",
@@ -19,7 +19,7 @@ const data = [
   },
   {
     id: 2,
-    xLocation: 400,
+    xLocation: 1800,
     title: {
       text: "we are breaking our vow of silence 2",
       position: "left center",
@@ -28,7 +28,7 @@ const data = [
   },
   {
     id: 3,
-    xLocation: 600,
+    xLocation: 2700,
     title: {
       text: "we are breaking our vow of silence 3",
       position: "left top",
@@ -37,7 +37,7 @@ const data = [
   },
   {
     id: 4,
-    xLocation: 800,
+    xLocation: 3600,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -46,7 +46,7 @@ const data = [
   },
   {
     id: 5,
-    xLocation: 1000,
+    xLocation: 4500,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -55,7 +55,7 @@ const data = [
   },
   {
     id: 6,
-    xLocation: 1200,
+    xLocation: 5400,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -64,7 +64,7 @@ const data = [
   },
   {
     id: 7,
-    xLocation: 1400,
+    xLocation: 6300,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -73,7 +73,7 @@ const data = [
   },
   {
     id: 8,
-    xLocation: 1600,
+    xLocation: 7200,
     title: {
       text: "we are breaking our vow of silence",
       position: "left top",
@@ -127,14 +127,18 @@ const fireAnimation = (currentId) => {
   if (currentId === 0) {
     text.animate(
       [
-        { transform: "translateY(15px)", opacity: "0.2" },
-        { transform: "translateY(0px)", opacity: "0.5" },
+        { transform: "translateY(15px)", opacity: "0" },
+        { transform: "translateY(0px)", opacity: "1" },
       ],
-      { duration: 300 }
+      { duration: 300, delay: 200 }
     )
   } else {
-    text.animate([{ opacity: "0" }, { opacity: "1" }], { duration: 500 })
+    text.animate([{ opacity: "0" }, { opacity: "1" }], {
+      duration: 1000,
+      delay: 200,
+    })
   }
+  text.style.opacity = "unset"
 }
 
 // Function to create new element for navigation
@@ -189,6 +193,7 @@ const displayTitle = (id) => {
   text.style.right = hr === "right" ? "0" : "unset"
   text.style.top = vr === "center" ? "40%" : "0"
   text.style.textAlign = hr
+  text.style.opacity = "0"
 
   fireAnimation(id)
 }
@@ -240,7 +245,6 @@ const makeTransition = (transitionSide) => {
     const locationToMove = getLocation(newId)
 
     toggleArrows(newId)
-    // createNewCarouselNode()
     updateSelectedNode(newId)
     displayTitle(newId)
 

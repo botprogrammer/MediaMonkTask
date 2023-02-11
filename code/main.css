@@ -29,8 +29,6 @@ body {
 .main {
   width: 100%;
   height: 100%;
-  /* overflow-x: auto; */
-  /* padding-right: 17px; */
   box-sizing: content-box;
   background: #101010;
 }
@@ -39,11 +37,9 @@ body {
   position: absolute;
   right: 0;
   max-width: max-content;
+  padding: 1rem;
   /* margin-left: auto; */
   /* height: 100vh; */
-}
-
-.titleSection {
 }
 
 .contactContent > div {
@@ -60,11 +56,51 @@ a {
   color: white;
   text-align: right;
   margin: 0;
+  font-family: klavika-regular;
 }
 
-.contactContent h2 {
-  margin-right: 1rem;
-  margin-top: 1rem;
+.contactSection {
+  margin-top: -3rem;
+}
+
+.contactSection p,
+a {
+  font-size: 0.75rem;
+}
+
+.contactContent .titleSection {
+  font-size: 3rem;
+}
+
+.contactContent .titleSection p {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+}
+
+.links {
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.links div {
+  gap: 0.5rem;
+}
+
+.links,
+.links div {
+  display: flex;
+  justify-content: end;
+}
+
+.links svg,
+path,
+rect {
+  fill: white !important;
+}
+
+.mail {
+  gap: 0.5rem;
 }
 
 .backgroundImage {
@@ -144,6 +180,7 @@ a {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: klavika-regular;
+  pointer-events: none;
 }
 
 .titleText > div {
